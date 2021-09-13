@@ -240,7 +240,6 @@ public class GameManager_Manager : MonoBehaviour{
             }
         }
         else if (m_GameState == e_GameState.Fever ) {
-            if (t_Distance < m_BadDist) {
                 m_Score += 25;
                 m_CurrCombo++;
                 //PointText_Manager.m_Instance.f_SpawnPoint(25, m_TextprefabSpawn.transform.position);
@@ -251,7 +250,6 @@ public class GameManager_Manager : MonoBehaviour{
                 ComboText_Manager.m_Instance.f_SpawnPoint(m_CurrCombo);
                 Audio_Manager.m_Instance.f_PlayOneShot(m_PtAcquired);
                 CameraShaker.Instance.ShakeOnce(2.0f, 2.0f, .1f, .1f);
-            }
         }
     }
 

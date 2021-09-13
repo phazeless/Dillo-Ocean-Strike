@@ -15,7 +15,7 @@ public class TapFxTest_Manager : ObjectPooler.PoolingManager_Manager<TapEffect_G
     //===== PUBLIC =====
     public int m_Index = 0;
     //===== PRIVATES =====
-    int t_Index;
+    int t_Indexs;
     TapEffect_Gameobject t_Temp;
     Vector3 t_Vector;
     //=====================================================================
@@ -33,7 +33,7 @@ public class TapFxTest_Manager : ObjectPooler.PoolingManager_Manager<TapEffect_G
     //				    OTHER METHOD
     //=====================================================================
     public void f_SpawnTap(int p_Index) {
-        t_Index = p_Index;
+        t_Indexs = p_Index;
         t_Vector = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         t_Vector.z = Camera.main.nearClipPlane;
         t_Temp = f_SpawnObject();
@@ -43,10 +43,10 @@ public class TapFxTest_Manager : ObjectPooler.PoolingManager_Manager<TapEffect_G
     }
 
     public override bool f_AdditionalValidation(int p_Index) {
-        return m_PoolingContainer[p_Index].m_TypeID == t_Index;
+        return m_PoolingContainer[p_Index].m_TypeID == t_Indexs;
     }
 
     public override int f_GetType() {
-        return t_Index;
+        return t_Indexs;
     }
 }
