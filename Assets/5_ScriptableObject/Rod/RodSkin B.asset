@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ObjectAnimator: {fileID: 9100000, guid: eba0f87ec099a6a478aa273ee8ccb995, type: 2}
   m_ID: 1
+  m_EffectImage: {fileID: 2965326537326444499, guid: e458f197bcf6f8c49acdcd16eeb69817, type: 3}
   m_Locked: 1
-  m_Price: 100
+  m_Price: 500

@@ -45,13 +45,11 @@ public class Character_Gameobject : MonoBehaviour{
         if (m_PullCount <= 0) {
             m_Dillo.SetTrigger("Pull");
             m_Rod.SetTrigger("Pull");
-            Debug.Log("Trigger");
         }
         else {
             m_Dillo.SetFloat("PullSpeed", 1.5f);
             m_Rod.SetFloat("PullSpeed", 1.5f);
             m_Fishes.SetFloat("PullSpeed", 1.5f);
-
         }
 
         m_PullCount++;

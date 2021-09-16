@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BoatAnimator: {fileID: 9100000, guid: cc071dab6b4b26a4fa7ea73d0ea57b4c, type: 2}
   m_ID: 2
-  m_ScoreMultiplier: 1
+  m_EffectImage: {fileID: 825028017160350678, guid: e458f197bcf6f8c49acdcd16eeb69817, type: 3}
+  m_Lore: Third boat dillo rented because dillo just want to try something new, increase
+    fever time by 50%
   m_Locked: 1
-  m_Price: 100
+  m_Price: 15000

@@ -20,6 +20,7 @@ public class Player_Gameobject : MonoBehaviour{
     public float m_DefaultSpeed;
     public int m_TapInterval;
     public float m_IncreaseSpeed = .1f;
+    public GameObject m_FeverEffect;
     [Header("Target")]
     public Transform m_LeftLocation;
     public Transform m_RightLocation;
@@ -42,7 +43,7 @@ public class Player_Gameobject : MonoBehaviour{
     }
 
     void Update(){
-        if (GameManager_Manager.m_Instance.f_IsGamePlaying()) {
+        if (GameManager_Manager.m_Instance.f_IsGamePlaying() && m_PlayerState!=e_PlayerMovement.Stop) {
             if (Vector2.Distance(transform.position, m_TargetPos) > .1f) {
                 m_MoveToPos = Vector2.MoveTowards(transform.position, m_TargetPos, m_Speed * Time.deltaTime);
                 m_MoveToPos.z = 100f;
@@ -85,6 +86,17 @@ public class Player_Gameobject : MonoBehaviour{
             t_TapCount = 0;
             f_IncreaseSpeed();
         }
+    }
+
+    public void f_FeverMode() {
+        transform.position = Goal_Gameobject.m_Instance.transform.position;
+        m_PlayerState = e_PlayerMovement.Stop;
+        m_FeverEffect.SetActive(true);
+    }
+
+    public void f_BackToNormal() {
+        m_FeverEffect.SetActive(false);
+        f_SetTarget();
     }
 
     public void f_IncreaseSpeed() {

@@ -10,12 +10,11 @@ public class CharacterSkin_Scriptable : ScriptableObject{
     //				      VARIABLES 
     //=====================================================================
     //===== SINGLETON =====
-    public static CharacterSkin_Scriptable m_Instance;
     //===== STRUCT =====
-
     //===== PUBLIC =====
     public RuntimeAnimatorController m_ObjectAnimator;
     public int m_ID;
+    public Sprite m_EffectImage;
     public bool m_Locked = true;
     public int m_Price = 100;
 }

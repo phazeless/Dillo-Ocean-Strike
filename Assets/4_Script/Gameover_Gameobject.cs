@@ -12,7 +12,6 @@ public class Gameover_Gameobject : MonoBehaviour{
     //===== STRUCT =====
 
     //===== PUBLIC =====
-
     //===== PRIVATES =====
 
     //=====================================================================

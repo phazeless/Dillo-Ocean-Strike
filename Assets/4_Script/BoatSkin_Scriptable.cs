@@ -12,7 +12,8 @@ public class BoatSkin_Scriptable : ScriptableObject{
     //===== PUBLIC =====
     public  RuntimeAnimatorController m_BoatAnimator;
     public int m_ID;
-    public float m_ScoreMultiplier = 1.0f;
+    public Sprite m_EffectImage;
+    public string m_Lore;
     public bool m_Locked = true;
     public int m_Price = 100;
 }

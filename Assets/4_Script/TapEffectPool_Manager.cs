@@ -17,6 +17,7 @@ public class TapEffectPool_Manager : PoolingManager_Manager<TapEffect_Gameobject
     //===== PRIVATES =====
     private int m_Type;
     TapEffect_Gameobject m_Temp;
+    Vector3 t_Vector;
     //=====================================================================
     //				MONOBEHAVIOUR METHOD 
     //=====================================================================
@@ -34,6 +35,11 @@ public class TapEffectPool_Manager : PoolingManager_Manager<TapEffect_Gameobject
     //=====================================================================
     //				    OTHER METHOD
     //=====================================================================
+    public void f_Tap(int p_Type) {
+        t_Vector = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        t_Vector.z = Camera.main.nearClipPlane;
+        f_SpawnTap(p_Type, t_Vector);
+    }
     public void f_SpawnTap(int p_Type,Vector3 p_SpawnPos) {
         m_Type = p_Type;
         m_Temp = f_SpawnObject();

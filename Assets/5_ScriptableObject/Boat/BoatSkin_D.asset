@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BoatAnimator: {fileID: 9100000, guid: 472a2bccab883274c911912a0581fd3b, type: 2}
   m_ID: 3
-  m_ScoreMultiplier: 1
+  m_EffectImage: {fileID: 7965744139388724095, guid: e458f197bcf6f8c49acdcd16eeb69817, type: 3}
+  m_Lore: Dillo made this boat! Due the so so quality, every fish's speed becomes
+    20% slower
   m_Locked: 1
-  m_Price: 100
+  m_Price: 40000

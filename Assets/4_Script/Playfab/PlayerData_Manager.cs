@@ -7,7 +7,6 @@ using TMPro;
 using PlayFab;
 using PlayFab.ClientModels;
 using Newtonsoft.Json;
-
 public class PlayerData_Manager : MonoBehaviour {
     //=====================================================================
     //				      VARIABLES 
@@ -33,10 +32,12 @@ public class PlayerData_Manager : MonoBehaviour {
     }
 
     public c_PlayerDataList m_PlayerDataList;
+    public Action m_OnGetDone;
     //===== PRIVATES =====
-    const string m_ShirtKey = "CLOTHES";
-    const string m_PantKey = "PANTS";
-    const string m_AvatarListKey = "AVATARLIST";
+    const string m_BoattKey = "CLOTHES";
+    const string m_RodKey = "PANTS";
+    const string m_BoatAvatarListKey = "BoatAvatarList";
+    const string m_RodAvatarListKey = "RodAvatarList";
     //=====================================================================
     //				MONOBEHAVIOUR METHOD 
     //=====================================================================
@@ -46,26 +47,29 @@ public class PlayerData_Manager : MonoBehaviour {
     //=====================================================================
     //				    OTHER METHOD
     //=====================================================================
-    public void f_UpdatePlayerAvatarData(int p_ShirtID, int p_PantID) {
+    public void f_UpdatePlayerAvatarData(int p_BoatID, int p_RodID) {
         PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest {
             Data = new Dictionary<string, string> {
-                {m_ShirtKey, p_ShirtID.ToString()},
-                {m_PantKey, p_PantID.ToString()}
+                {m_BoattKey, p_BoatID.ToString()},
+                {m_RodKey, p_RodID.ToString()}
             },
             Permission = UserDataPermission.Public
         }, f_OnUpdatePlayerDataSuccess, PlayFab_Error.m_Instance.f_OnPlayFabError);
     }
 
-    public void f_UpdatePlayerAvatarList(string p_AvatarList) {
+    public void f_UpdatePlayerAvatarList(string p_BoatAvatarList,string p_RodList,Action p_Func=null) {
+        m_OnGetDone += p_Func;
         PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest {
             Data = new Dictionary<string, string> {
-                {m_AvatarListKey, p_AvatarList},
+                {m_BoatAvatarListKey, p_BoatAvatarList},
+                {m_RodAvatarListKey, p_RodList }
             },
             Permission = UserDataPermission.Public
         }, f_OnUpdatePlayerDataSuccess, PlayFab_Error.m_Instance.f_OnPlayFabError);
     }
 
-    public void f_GetPlayerData() {
+    public void f_GetPlayerData(Action p_Func = null) {
+        m_OnGetDone += p_Func;
         PlayFabClientAPI.GetUserData(new GetUserDataRequest() {
             PlayFabId = LoginManager_Manager.m_Instance.m_LoginData.PlayFabId,
             Keys = null,
@@ -78,6 +82,26 @@ public class PlayerData_Manager : MonoBehaviour {
 
     public void f_OnGetPlayerDataSuccess(GetUserDataResult p_Result) {
         m_PlayerDataList = JsonConvert.DeserializeObject<c_PlayerDataList>(p_Result.ToJson());
+
+        c_DataDetails t_BoatList;
+        c_DataDetails t_RodList;
+        c_DataDetails t_UsedRod;
+        c_DataDetails t_UsedBoat;
+
+        m_PlayerDataList.Data.TryGetValue(m_BoattKey, out t_UsedBoat);
+        m_PlayerDataList.Data.TryGetValue(m_RodKey, out t_UsedRod);
+
+        if (t_UsedRod != null && t_UsedBoat != null) {
+            Wardobe_Manager.m_Instance.f_SetClothes(t_UsedBoat.Value, t_UsedRod.Value);
+        }
+
+        m_PlayerDataList.Data.TryGetValue(m_BoatAvatarListKey, out t_BoatList);
+        m_PlayerDataList.Data.TryGetValue(m_RodAvatarListKey, out t_RodList);
+
+        if (t_BoatList != null && t_RodList != null) Wardobe_Manager.m_Instance.f_GetWardobeData(t_BoatList.Value, t_RodList.Value);
+
+        m_OnGetDone?.Invoke();
+        m_OnGetDone = null;
     }
    
 }

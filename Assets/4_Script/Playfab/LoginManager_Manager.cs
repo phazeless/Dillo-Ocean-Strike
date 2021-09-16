@@ -70,7 +70,8 @@ public class LoginManager_Manager : MonoBehaviour{
     }
 
     void Start(){
-        Debug.Log(ReturnAndroidID());
+        //Debug.Log(ReturnAndroidID());
+        Player_Manager.m_Instance.f_LoadingStart();
         f_GuestLoginRequest();
         //f_InitializePlayGamesConfig();
     }
@@ -89,19 +90,18 @@ public class LoginManager_Manager : MonoBehaviour{
         m_LoginData = JsonUtility.FromJson<c_LoginData>(p_Result.ToJson());
 
         if (m_LoginData.NewlyCreated == "true") {
-            PlayerStatistic_Manager.m_Instance.f_NewPlayer();
-            PlayFabClientAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest {DisplayName = ReturnDeviceName()},f_OnDisplayNameSuccess,PlayFab_Error.m_Instance.f_OnPlayFabError);
+            PlayerStatistic_Manager.m_Instance.f_NewPlayer(f_OnGetStatisticsDone);
+            PlayFabClientAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest { DisplayName = ReturnDeviceName() }, f_OnDisplayNameSuccess, PlayFab_Error.m_Instance.f_OnPlayFabError);
+        }
+        else {
+            PlayerStatistic_Manager.m_Instance.f_GetPlayerStatistic(f_OnGetStatisticsDone);
         }
 
         if (p_Result.InfoResultPayload.PlayerProfile != null) {
             m_LoginData.DisplayName = p_Result.InfoResultPayload.PlayerProfile.DisplayName;
         }
 
-        PlayerStatistic_Manager.m_Instance.f_GetPlayerStatistic();
-        CurrencyManager_Manager.m_Instance.f_GetCurrency();
-        LeaderboardManager_Manager.m_Instance.f_GetLeaderBoard();
-        PlayerData_Manager.m_Instance.f_GetPlayerData();
-        LeaderboardManager_Manager.m_Instance.f_GetPlayerLeaderBoard();
+      
     }
 
     /// <summary>
@@ -222,4 +222,24 @@ public class LoginManager_Manager : MonoBehaviour{
     }
 
     #endregion
+
+    public void f_OnGetStatisticsDone() {
+        CurrencyManager_Manager.m_Instance.f_GetCurrency(f_OnGetCurrencyDone);
+    }
+    public void f_OnGetCurrencyDone() {
+        LeaderboardManager_Manager.m_Instance.f_GetLeaderBoard(f_OnGetLeaderboardDone);
+    }
+    public void f_OnGetLeaderboardDone() {
+        if (m_LoginData.NewlyCreated == "true") {
+            Wardobe_Manager.m_Instance.f_UpdateWardobeData();
+            PlayerData_Manager.m_Instance.f_UpdatePlayerAvatarData(0, 0);
+            f_GetPlayerDataDone();
+        }
+        else PlayerData_Manager.m_Instance.f_GetPlayerData(f_GetPlayerDataDone);
+    }
+    public void f_GetPlayerDataDone() {
+       Player_Manager.m_Instance.f_LoadingFinish();
+       Player_Manager.m_Instance.f_CheckInternetStart();
+    }
+
 }

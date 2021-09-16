@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BoatAnimator: {fileID: 9100000, guid: 8ae95b51198e19646a57f37250143358, type: 2}
   m_ID: 0
-  m_ScoreMultiplier: 1
+  m_EffectImage: {fileID: -3326801457629439396, guid: e458f197bcf6f8c49acdcd16eeb69817, type: 3}
+  m_Lore: First boat dillo ever rented, of course it doesn't have any effect
   m_Locked: 0
+  m_Price: 0
