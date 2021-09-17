@@ -118,8 +118,18 @@ public class LoginManager_Manager : MonoBehaviour{
         };
         PlayFabClientAPI.LoginWithAndroidDeviceID(RequestAndroid, f_OnLoginSuccess, PlayFab_Error.m_Instance.f_OnPlayFabError);
 #endif
+#if UNITY_STANDALONE_WIN
+        LoginWithCustomIDRequest t_Req = new LoginWithCustomIDRequest {
+            CustomId = "Testing",
+            CreateAccount = true,
+            InfoRequestParameters = new GetPlayerCombinedInfoRequestParams {
+                GetPlayerProfile = true
+            }
+        };
+        PlayFabClientAPI.LoginWithCustomID(t_Req, f_OnLoginSuccess, PlayFab_Error.m_Instance.f_OnPlayFabError);
+#endif
     }
-    
+
     /// <summary>
     /// Method for requesting unlink Android Device ID to playfab
     /// </summary>
@@ -149,6 +159,7 @@ public class LoginManager_Manager : MonoBehaviour{
         return SystemInfo.deviceName;
     }
 
+#if UNITY_ANDROID
     #region GOOGLE
     /// <summary>
     /// Method for Initialize Google Play Games Config
@@ -222,6 +233,7 @@ public class LoginManager_Manager : MonoBehaviour{
     }
 
     #endregion
+#endif 
 
     public void f_OnGetStatisticsDone() {
         CurrencyManager_Manager.m_Instance.f_GetCurrency(f_OnGetCurrencyDone);

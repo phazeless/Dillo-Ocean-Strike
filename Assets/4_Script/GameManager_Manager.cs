@@ -67,6 +67,9 @@ public class GameManager_Manager : MonoBehaviour{
     //=====================================================================
     void Awake(){
         m_Instance = this;
+#if UNITY_STANDALONE_WIN
+        Screen.fullScreen = true;
+#endif
     }
 
     void Start(){
