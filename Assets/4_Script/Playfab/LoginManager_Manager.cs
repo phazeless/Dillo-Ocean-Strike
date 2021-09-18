@@ -60,6 +60,7 @@ public class LoginManager_Manager : MonoBehaviour{
     public c_LoginData m_LoginData;
     public bool m_GuestLoggedIn;
     public bool m_IsLinked;
+    public TextMeshProUGUI m_Text;
     //===== PRIVATES =====
 
     //=====================================================================
@@ -71,8 +72,9 @@ public class LoginManager_Manager : MonoBehaviour{
 
     void Start(){
         Debug.Log(ReturnAndroidID());
-        f_GuestLoginRequest();
-        //f_InitializePlayGamesConfig();
+        //f_GuestLoginRequest();
+        f_InitializePlayGamesConfig();
+        //f_GoogleSignInRequest();
     }
 
     void Update(){
@@ -177,13 +179,18 @@ public class LoginManager_Manager : MonoBehaviour{
         Social.localUser.Authenticate((p_Success) => {
             if (p_Success) {
                 string t_ServerAuthCode = PlayGamesPlatform.Instance.GetServerAuthCode();
-
-                if (m_GuestLoggedIn && !m_IsLinked) {
-                    f_LinkWithGoogle(t_ServerAuthCode);
-                }
-                else if (!m_GuestLoggedIn && !m_IsLinked) {
-                    f_LoginWithGoogle(t_ServerAuthCode);
-                }
+                m_Text.text = t_ServerAuthCode;
+                f_LoginWithGoogle(t_ServerAuthCode);
+                //if (m_GuestLoggedIn && !m_IsLinked) {
+                //    f_LinkWithGoogle(t_ServerAuthCode);
+                //}
+                //else if (!m_GuestLoggedIn && !m_IsLinked) {
+                    
+                //}
+            }
+            else {
+                m_Text.text =""+ p_Success;
+                Debug.Log(p_Success);
             }
 
         });
