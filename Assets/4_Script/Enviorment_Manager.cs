@@ -15,6 +15,7 @@ public class Enviorment_Manager : MonoBehaviour{
     public List<Enviorment_Gameobject> m_Enviorment;
     public GameObject m_OceanReflection;
     public GameObject m_Rain;
+    public GameObject m_FeverEffect;
     public List<Thunder_Gameobject> m_Thunder;
     public Animator m_Flash;
     public AudioClip m_StormClip;
@@ -56,7 +57,9 @@ public class Enviorment_Manager : MonoBehaviour{
         m_Rain.SetActive(true);
         Audio_Manager.m_Instance.f_ChangeAmbience(m_StormClip);
         Audio_Manager.m_Instance.f_ChangeBGM(m_FeverClip);
-
+        m_FeverEffect.gameObject.SetActive(true);
+        Goal_Gameobject.m_Instance.f_FeverMode();
+        Player_Gameobject.m_Instance.f_FeverMode();
     }
 
     public void f_BackToNormal() {
@@ -76,6 +79,9 @@ public class Enviorment_Manager : MonoBehaviour{
         m_Rain.SetActive(false);
         Audio_Manager.m_Instance.f_ChangeAmbience(m_SeaClip);
         Audio_Manager.m_Instance.f_ChangeBGM(m_NormalClip);
+        m_FeverEffect.gameObject.SetActive(false);
+        Goal_Gameobject.m_Instance.f_BackToNormal();
+        Player_Gameobject.m_Instance.f_BackToNormal();
 
     }
 }

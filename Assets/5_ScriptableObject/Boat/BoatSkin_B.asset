@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BoatAnimator: {fileID: 9100000, guid: 8a34acc6be7fc8b4097bf404902442cc, type: 2}
   m_ID: 1
-  m_ScoreMultiplier: 1
+  m_EffectImage: {fileID: -4041370092854173885, guid: e458f197bcf6f8c49acdcd16eeb69817, type: 3}
+  m_Lore: Second boat dillo rented because the first one was lend by someone else,
+    reduce fever count by 2
   m_Locked: 1
-  m_Price: 100
+  m_Price: 7500

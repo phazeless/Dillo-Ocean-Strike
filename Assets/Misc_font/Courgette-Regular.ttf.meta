@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: f2cbd67a4d09b464dac88fcf31731c3b
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Courgette
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: e330b900821de4a4095bc5dade76afeb, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

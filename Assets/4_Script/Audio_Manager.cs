@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Enumuration;
 
 public class Audio_Manager : MonoBehaviour{
     //=====================================================================
@@ -15,6 +16,10 @@ public class Audio_Manager : MonoBehaviour{
     public AudioSource m_AmbienceSource;
     public AudioSource m_BGMSource;
     public AudioSource m_OneShotSource;
+    public e_Mute m_MuteState;
+    public Image[] m_Button;
+    public Sprite m_MuteSprite;
+    public Sprite m_NotMuteSprite;
     //===== PRIVATES =====
 
     //=====================================================================
@@ -45,5 +50,22 @@ public class Audio_Manager : MonoBehaviour{
 
     public void f_PlayOneShot(AudioClip p_Audio) {
         m_OneShotSource.PlayOneShot(p_Audio);
+    }
+
+    public void f_CheckMute() {
+        if (m_MuteState == e_Mute.NotMute) {
+            AudioListener.volume = 0;
+            m_MuteState = e_Mute.Mute;
+            for (int i = 0; i < m_Button.Length; i++) {
+                m_Button[i].sprite = m_NotMuteSprite;
+            }
+        }
+        else {
+            AudioListener.volume = 1;
+            m_MuteState = e_Mute.NotMute;
+            for (int i = 0; i < m_Button.Length; i++) {
+                m_Button[i].sprite = m_MuteSprite;
+            }
+        }
     }
 }

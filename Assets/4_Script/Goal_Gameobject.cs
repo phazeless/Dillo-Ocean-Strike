@@ -97,6 +97,17 @@ public class Goal_Gameobject : MonoBehaviour{
         }
     }
 
+    public void f_FeverMode() {
+        transform.position = m_Default.position;
+        transform.localScale = new Vector3(1.5f, 1.5f);
+        m_GoalState = e_GoalMovement.Stop;
+    }
+
+    public void f_BackToNormal() {
+        transform.localScale = new Vector3(1f, 1f);
+        f_SetTarget();
+    }
+
     public void f_IncreaseSpeed() {
         m_Speed += m_IncreaseSpeed;
         if (m_Speed > m_MaxSpeed) m_Speed = m_MaxSpeed;

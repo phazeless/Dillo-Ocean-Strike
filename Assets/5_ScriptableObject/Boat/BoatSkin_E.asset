@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BoatAnimator: {fileID: 9100000, guid: 4bdc3f6941fe2c64f907518a16d07550, type: 2}
   m_ID: 4
-  m_ScoreMultiplier: 1
+  m_EffectImage: {fileID: 6182210309142647308, guid: e458f197bcf6f8c49acdcd16eeb69817, type: 3}
+  m_Lore: Dillo got a help from a friend and made a new boat! the boat is so great
+    that it can gives Dillo more spirit to catch more fishes
   m_Locked: 1
-  m_Price: 100
+  m_Price: 100000

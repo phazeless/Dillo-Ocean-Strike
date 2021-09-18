@@ -28,14 +28,14 @@ public class Winning_Manager : MonoBehaviour {
     public TextMeshProUGUI m_PostMultiplierProgressText;
     public TextMeshProUGUI m_PostMultiplierMaxText;
     //===== PRIVATES =====
-    double t_CurrentAmountAnimation = 0;
-    double t_NominalPerSecond = 0;
+    float t_CurrentAmountAnimation = 0;
+    float t_NominalPerSecond = 0;
     float t_CurrentProgress;
-    double t_Target;
+    float t_Target;
 
-    double t_Score = 0;
-    double t_Currency = 0;
-    double t_MultiplierProgress = 0;
+    float t_Score = 0;
+    float t_Currency = 0;
+    float t_MultiplierProgress = 0;
     //=====================================================================
     //				MONOBEHAVIOUR METHOD 
     //=====================================================================
@@ -64,7 +64,7 @@ public class Winning_Manager : MonoBehaviour {
         t_Score = 0;
         t_Currency = 0;
         m_ScoreText.text = t_Score.ToString("0000");
-        m_CurrencyText.text = "+" + t_Currency.ToString("00");
+        m_CurrencyText.text = t_Currency.ToString("00");
         m_PostMultiplierLevelText.text = Player_Manager.m_Instance.m_MultiplierLevel.ToString("000");
         m_PostMultiplierProgressText.text = Player_Manager.m_Instance.m_MultiplierProgress.ToString("0000");
         m_PostMultiplierMaxText.text = Player_Manager.m_Instance.m_MaxMultiplierProgress.ToString("0000");
@@ -80,6 +80,7 @@ public class Winning_Manager : MonoBehaviour {
         yield return Timing.WaitForSeconds(1f);
         t_Target = GameManager_Manager.m_Instance.m_Score;
         yield return Timing.WaitUntilDone(Timing.RunCoroutine(ie_UpdateText(t_MultiplierProgress,t_MultiplierProgress+GameManager_Manager.m_Instance.m_Score,f_UpdateNominal, t_Target /100)));
+        Player_Manager.m_Instance.f_UpdateMultiplierData();
         m_MultiplierBackButton.interactable = true;
     }
 
@@ -90,20 +91,22 @@ public class Winning_Manager : MonoBehaviour {
         m_LoppAudio.Play();
         t_Target = GameManager_Manager.m_Instance.m_Score;
         yield return Timing.WaitUntilDone(Timing.RunCoroutine(ie_UpdateText(0,GameManager_Manager.m_Instance.m_Score,f_UpdateScore, t_Target/100)));
-        t_Target = (double) Mathf.Ceil(((float)GameManager_Manager.m_Instance.m_Score) / 100);
+        t_Target = Mathf.Ceil(((float)GameManager_Manager.m_Instance.m_Score) / 100);
         m_LoppAudio.Play();
         yield return Timing.WaitUntilDone(Timing.RunCoroutine(ie_UpdateText(0, t_Target, f_UpdateWinnings,t_Target /100)));
+        Player_Manager.m_Instance.f_LoadingStart();
+        CurrencyManager_Manager.m_Instance.f_AddVirtualCurrencyRequest((int)t_Target,Player_Manager.m_Instance.f_LoadingFinish);
         m_DoubleWinningButton.interactable = true;
         m_RetryButton.interactable = true;
         m_HomeButton.interactable = true;
     }
 
-    public void f_UpdateScore(double p_ScoreAdd) {
+    public void f_UpdateScore(float p_ScoreAdd) {
         t_Score += p_ScoreAdd;
         m_ScoreText.text = t_Score.ToString("0000");
     }
 
-    public void f_UpdateNominal(double p_ProgressAdd) {
+    public void f_UpdateNominal(float p_ProgressAdd) {
         t_MultiplierProgress += p_ProgressAdd;
         Player_Manager.m_Instance.m_MultiplierProgress += p_ProgressAdd;
         if (Player_Manager.m_Instance.m_MultiplierProgress>= Player_Manager.m_Instance.m_MaxMultiplierProgress) {
@@ -128,17 +131,19 @@ public class Winning_Manager : MonoBehaviour {
     public IEnumerator<float> ie_DoubleWinning() {
         m_LoppAudio.Play();
         yield return Timing.WaitUntilDone(Timing.RunCoroutine(ie_UpdateText(t_Currency, t_Currency*2, f_UpdateWinnings, (float) (t_Currency)/100)));
+        Player_Manager.m_Instance.f_LoadingStart();
+        CurrencyManager_Manager.m_Instance.f_AddVirtualCurrencyRequest((int)t_Currency/2,Player_Manager.m_Instance.f_LoadingFinish);
         m_RetryButton.interactable = true;
         m_HomeButton.interactable = true;
     }
 
-    public void f_UpdateWinnings(double p_ScoreAdd) {
+    public void f_UpdateWinnings(float p_ScoreAdd) {
         Player_Manager.m_Instance.m_Currency += p_ScoreAdd;
         t_Currency += p_ScoreAdd;
-        m_CurrencyText.text = "+"+t_Currency.ToString("00");
+        m_CurrencyText.text = t_Currency.ToString("00");
     }
 
-    public IEnumerator<float> ie_UpdateText(double p_IntialAmount, double p_WinningAmount, Action<double> p_Callback, double p_MoneyPerSecond) {
+    public IEnumerator<float> ie_UpdateText(float p_IntialAmount, float p_WinningAmount, Action<float> p_Callback, float p_MoneyPerSecond) {
         t_CurrentAmountAnimation = p_IntialAmount;
         t_NominalPerSecond = p_MoneyPerSecond;
         for (int i = 0; i < 100; i++) {
