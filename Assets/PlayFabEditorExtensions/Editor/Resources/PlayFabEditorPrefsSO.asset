@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: PlayFabEditorPrefsSO
   m_EditorClassIdentifier: 
   DevAccountEmail: redrain.development@gmail.com
-  DevAccountToken: n6kpckcjr49e1sdwcxths6tor1psf3ccyamuehrhx713z6e6mt434bs48zg9grzt9njzjo1hkwo1xw7o6tppaknrzunpqjbrzp5bhydoj16dmabfishq6apjws96zmcf9ft1pfr9yuxyjpaoyaguuitpjtoyuyugfduch4zsumqwe5gb7kqoffooyjm7ad3un91pw49x
+  DevAccountToken: q757b74r94inibh6h4s56ifr31cd9yee1hhne7r58t7ex54xgmyg6k61679ow63bu83hnq63mdekgnutoeuznokfapaew8mt8to1ng9yyqozhxjfumpg4i3y43o98y1dfur4m1sk95y5ic9xik1zd5kyutj5z7f5hfd4iowykgfqd86pe657bwsfx858n8a7u6xokf9k
   SelectedStudio: RedRain Game Studio
   SdkPath: Assets/PlayFabSDK
   EdExPath: 
   LocalCloudScriptPath: 
   PanelIsShown: 0
   curMainMenuIdx: 1
-  curSubMenuIdx: 2
+  curSubMenuIdx: 0
